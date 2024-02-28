@@ -19,4 +19,10 @@ class SimpleView {
       color: Colors.white,
       borderRadius: BorderRadius.circular(10)
   );
+
+  // 灰色圆角
+  static BoxDecoration get grayRadius10 => BoxDecoration(
+      color: PrimaryColor.grayF6,
+      borderRadius: BorderRadius.circular(10)
+  );
 }

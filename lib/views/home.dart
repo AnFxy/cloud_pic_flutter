@@ -71,10 +71,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   decoration: SimpleView.gradientDecoration,
                   child: GridView.count(
                       crossAxisCount: 2,
-                      children: List.generate(4, (index) {
-                        return Card(
-                          color: PrimaryColor.grayF6,
-                          child: Image.asset('images/new_album.jpg'),
+                      padding: const EdgeInsets.fromLTRB(10, 15, 0, 0),
+                      children: List.generate(9, (index) {
+                        return Container(
+                          decoration: SimpleView.grayRadius10,
+                          margin:  const EdgeInsets.fromLTRB(0, 0, 10, 15),
+                          child: Center(child: Image.asset('images/new_album.jpg', width: 120, height: 120))
                         );
                       }),
                   )
