@@ -1,5 +1,7 @@
 import 'dart:async';
-import 'package:cloud_pic_flutter/views/main.dart';
+import 'package:cloud_pic_flutter/viewmodels/login_view_model.dart';
+import 'package:cloud_pic_flutter/views/login.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:package_info/package_info.dart';
@@ -8,7 +10,12 @@ import '../styles/xy_view.dart';
 import '../styles/xy_text_style.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => LoginViewModel(),
+      child: const MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -59,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
         timer.cancel();
         // 进入首页
         Navigator.pop(context);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
         return;
       }
       setState(() {

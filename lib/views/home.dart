@@ -1,4 +1,3 @@
-import 'package:cloud_pic_flutter/styles/xy_color.dart';
 import 'package:cloud_pic_flutter/styles/xy_text_style.dart';
 import 'package:cloud_pic_flutter/styles/xy_view.dart';
 import 'package:cloud_pic_flutter/utils/screen_util.dart';
@@ -27,8 +26,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  int _albumCount = 0;
-  int _pictureCount = 0;
+  final int _albumCount = 0;
+  final int _pictureCount = 0;
 
   @override
   void initState() {
@@ -56,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         Text('云相册', style: PrimaryTextStyle.blackText18,),
                         const SizedBox(height: 4),
-                        Text('${_albumCount}相册 ${_pictureCount}图片', style: PrimaryTextStyle.primaryText12,)
+                        Text('$_albumCount相册 $_pictureCount图片', style: PrimaryTextStyle.primaryText12,)
                       ]),
                 ),
                 SizedBox(

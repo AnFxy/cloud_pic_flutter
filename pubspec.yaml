@@ -38,6 +38,8 @@ dependencies:
 
   lottie: ^3.1.0
   package_info: ^2.0.2
+  provider: ^6.1.2
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +71,11 @@ flutter:
     - images/setting.png
     - images/cus.png
     - images/new_album.jpg
+    - images/back.png
+    - images/qq.png
+    - images/wechat.png
+    - images/eyes_closed.png
+    - images/eyes_open.png
     - json/blue_fish.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
