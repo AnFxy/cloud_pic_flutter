@@ -1,3 +1,4 @@
+import 'package:cloud_pic_flutter/styles/xy_color.dart';
 import 'package:cloud_pic_flutter/styles/xy_text_style.dart';
 import 'package:cloud_pic_flutter/styles/xy_view.dart';
 import 'package:cloud_pic_flutter/utils/screen_util.dart';
@@ -30,11 +31,14 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   bool _selectedLogin = true;
   bool _checkedPrivacy = false;
+  bool _isCloseEyes = true;
 
   String _currentInputAccountText = "";
   String _currentInputPasswordText = "";
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _controllerPW = TextEditingController();
+
+  final TextEditingController _controllerPWConfirm = TextEditingController();
 
   @override
   void initState() {
@@ -62,6 +66,16 @@ class _MyLoginPageState extends State<MyLoginPage> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => const TestPage()));
   }
 
+  void _goBack() {
+    Navigator.of(context).pop(true);
+  }
+
+  void _onClickEyes() {
+    setState(() {
+      _isCloseEyes = !_isCloseEyes;
+    });
+  }
+
   void _onLoginClick() {
     setState(() {
       _currentInputAccountText = _controller.text;
@@ -84,10 +98,13 @@ class _MyLoginPageState extends State<MyLoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      width: 48,
-                      height: ScreenUtil.get().appBarHeight,
-                      child: Center(child: Image.asset('images/back.png', width: 20, height: 20,)),
+                    GestureDetector(
+                      onTap: _goBack,
+                      child: SizedBox(
+                        width: 48,
+                        height: ScreenUtil.get().appBarHeight,
+                        child: Center(child: Image.asset('images/back.png', width: 20, height: 20,)),
+                      ),
                     ),
                     Text('登录', style: PrimaryTextStyle.blackText18),
                     GestureDetector(
@@ -100,54 +117,74 @@ class _MyLoginPageState extends State<MyLoginPage> {
                     )
                   ],
                 ),
-                Container(
-                    width: 100,
-                    height: 100,
-                    margin: const EdgeInsets.only(top: 20),
-                    decoration: SimpleView.whiteRadius10,
-                    child: Align(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child:Image.asset('images/logo.jpg', width: 80, height: 80),
-                      ),
-                    )
-                ),
+                SimpleView.logoView,
                 Container(
                     decoration: SimpleView.whiteRadius10,
                     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
+                        const SizedBox(height: 10),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
+                            const SizedBox(width: 10,),
                             GestureDetector(
-                              child: Text('登录', style: _selectedLogin ? PrimaryTextStyle.selectedText18 : PrimaryTextStyle.blackText16),
+                              child: Column(
+                                children: [
+                                  Text('登录', style: _selectedLogin ? PrimaryTextStyle.selectedText22 : PrimaryTextStyle.grayText18),
+                                  SimpleView.bottomLine(_selectedLogin)
+                                ],
+                              ),
                               onTap: () =>_changeTab(true),
                             ),
-                            const SizedBox(width: 10),
-                            GestureDetector(child: Text('注册', style: !_selectedLogin ? PrimaryTextStyle.selectedText18 : PrimaryTextStyle.blackText16),
+                            const SizedBox(width: 16),
+                            GestureDetector(child:
+                              Column(
+                                children: [
+                                  Text('注册', style: !_selectedLogin ? PrimaryTextStyle.selectedText22 : PrimaryTextStyle.grayText18),
+                                  SimpleView.bottomLine(!_selectedLogin)
+                                ],
+                              ),
                               onTap: () => _changeTab(false),
                             ),
                             const Expanded(child: SizedBox()),
-                            SizedBox(
-                              child: Image.asset('images/eyes_closed.png', width: 20, height: 20),
+                            GestureDetector(
+                              onTap: _onClickEyes,
+                              child: SizedBox(
+                                child: Image.asset(_isCloseEyes ? 'images/eyes_closed.png' : 'images/eyes_open.png', width: 20, height: 20),
+                              ),
                             )
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Stack(
+                          children: [
+                            TextField(
+                              cursorColor: PrimaryColor.selectBlue,
+                              decoration: SimpleView.inputDecoration('手机号'),
+                              controller: _controller
+                            ),
+                            Positioned(right: 10, bottom: 10, child: Text('+86', style: PrimaryTextStyle.grayBoldText16))
                           ],
                         ),
                         Stack(
                           children: [
                             TextField(
-                              controller: _controller,
+                              cursorColor: PrimaryColor.selectBlue,
+                              obscureText: _isCloseEyes,
+                              decoration: SimpleView.inputDecoration('8-16位、字母和数字组合'),
+                              controller: _controllerPW
                             ),
-                            Positioned(right: 10, bottom: 10, child: Text('+86', style: PrimaryTextStyle.grayText12))
+                            Positioned(right: 10, bottom: 16, child: Text('忘记密码', style: PrimaryTextStyle.primaryText14,))
                           ],
                         ),
-                        Stack(
-                          children: [
-                            TextField(controller: _controllerPW),
-                            Positioned(right: 10, bottom: 10, child: Text('忘记密码', style: PrimaryTextStyle.primaryText12,))
-                          ],
-                        ),
+                        if (!_selectedLogin) TextField(
+                            cursorColor: PrimaryColor.selectBlue,
+                            obscureText: _isCloseEyes,
+                            decoration: SimpleView.inputDecoration('确认密码'),
+                            controller: _controllerPWConfirm
+                        )
                       ],
                     )
                 ),

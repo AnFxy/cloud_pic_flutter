@@ -65,8 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (currentSecond <= 0) {
         timer.cancel();
         // 进入首页
-        Navigator.pop(context);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
         return;
       }
       setState(() {
@@ -135,7 +134,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Positioned(
                       bottom: 50,
-                      child: Text('V${_packageInfo.version}'),
+                      child: Container(
+                          decoration: SimpleView.whiteRadiusShadow10,
+                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                          child: Text('V${_packageInfo.version}', style: PrimaryTextStyle.boldBlackText14,)
+                      ),
                   )
                 ],
               )
